@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/pages/auth/controller/auth_controller.dart';
+import 'package:greengrocer/src/pages/auth/view/components/forgot_password_dialog.dart';
 import 'package:greengrocer/src/pages/common_widgets/app_name_widget.dart';
 import 'package:greengrocer/src/pages/common_widgets/custom_text_field.dart';
 import 'package:greengrocer/src/pages_groce/app_pages.dart';
@@ -136,7 +137,14 @@ class SignInScreen extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) {
+                                  return ForgotPasswordDialog(
+                                      email: emailController.text);
+                                });
+                          },
                           child: Text(
                             'Esqueceu a senha?',
                             style: TextStyle(
