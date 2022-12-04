@@ -17,7 +17,6 @@ class AuthController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
     validateToken();
   }
 
@@ -48,9 +47,7 @@ class AuthController extends GetxController {
   }
 
   void saveTokenAndProcedToBase() {
-    //Salvar o token
     utilsServices.saveLocalData(key: StorangeKeys.token, data: user.token!);
-    //Ir para base
     Get.offAllNamed(PagesRoutes.baseScrenn);
   }
 

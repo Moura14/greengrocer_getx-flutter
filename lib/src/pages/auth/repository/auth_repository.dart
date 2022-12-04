@@ -30,7 +30,7 @@ class AuthRepository {
   Future<AuthResult> signIn(
       {required String email, required String password}) async {
     final result = await _httpMenager.restRequest(
-      url: Endpoint.signIn,
+      url: Endpoint.signin,
       method: HttpMethods.post,
       body: {'email': email, 'password': password},
     );
@@ -39,7 +39,10 @@ class AuthRepository {
 
   Future<AuthResult> signUp(UserModel user) async {
     final result = await _httpMenager.restRequest(
-        url: Endpoint.signUp, method: HttpMethods.post, body: user.toJson());
+      url: Endpoint.signup,
+      method: HttpMethods.post,
+      body: user.toJson(),
+    );
     return heandleUserForError(result);
   }
 }
