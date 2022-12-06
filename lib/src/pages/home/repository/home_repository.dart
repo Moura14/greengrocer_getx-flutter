@@ -6,14 +6,14 @@ import 'package:greengrocer/src/services/http_menager.dart';
 class HomeRepository {
   final HttpMenager _httpMenager = HttpMenager();
 
-  Future<HomeResult> getAllCategories() async {
+  Future<HomeResult<CategoryModel>> getAllCategories() async {
     final result = await _httpMenager.restRequest(
       url: Endpoint.getAllCategories,
       method: HttpMethods.post,
     );
     if (result['result'] != null) {
       List<CategoryModel> data =
-          (result['result'] as List<Map<String, dynamic>>)
+          (List<Map<String, dynamic>>.from(result['result']))
               .map(CategoryModel.fromJson)
               .toList();
 
