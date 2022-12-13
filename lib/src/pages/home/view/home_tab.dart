@@ -8,7 +8,6 @@ import 'package:greengrocer/src/pages/common_widgets/app_name_widget.dart';
 import 'package:greengrocer/src/pages/common_widgets/custom_shimmer.dart';
 import 'package:greengrocer/src/pages/home/controller/home_controller.dart';
 import 'package:greengrocer/src/pages/home/view/components/category_tile.dart';
-import 'package:greengrocer/src/config/app_data.dart' as appData;
 import 'package:greengrocer/src/pages/home/view/components/item_tile.dart';
 
 class HomeTab extends StatefulWidget {
@@ -117,7 +116,7 @@ class _HomeTabState extends State<HomeTab> {
               return Container(
                 padding: const EdgeInsets.only(left: 25),
                 height: 40,
-                child: !controller.isLoading
+                child: !controller.isCategoryLoading
                     ? ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (_, index) {
@@ -156,7 +155,7 @@ class _HomeTabState extends State<HomeTab> {
             // Grid
             GetBuilder<HomeController>(builder: ((controller) {
               return Expanded(
-                child: !controller.isLoading
+                child: !controller.isProductLoading
                     ? GridView.builder(
                         padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                         physics: const BouncingScrollPhysics(),
@@ -167,10 +166,10 @@ class _HomeTabState extends State<HomeTab> {
                           crossAxisSpacing: 10,
                           childAspectRatio: 9 / 11.5,
                         ),
-                        itemCount: appData.items.length,
+                        itemCount: controller.allProducts.length,
                         itemBuilder: (_, index) {
                           return ItemTile(
-                              item: appData.items[index],
+                              item: controller.allProducts[index],
                               cartAnimationMethod: itemSelectedCartAnimations);
                         },
                       )
