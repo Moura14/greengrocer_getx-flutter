@@ -36,7 +36,7 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     debounce(searchTitle, (_) {
-      update();
+      filterByTitle();
     }, time: const Duration(milliseconds: 600));
     getAllCategories();
   }
@@ -81,8 +81,14 @@ class HomeController extends GetxController {
             CategoryModel(title: 'Todos', id: '', items: [], pagenation: 0);
 
         allCategories.insert(0, allProductsCategory);
+      } else {
+        c.items.clear();
+        c.pagenation = 0;
       }
     }
+    currentCategory = allCategories.first;
+    update();
+    getAllProducts();
   }
 
   void loadMoreProducts() {
@@ -98,8 +104,16 @@ class HomeController extends GetxController {
     Map<String, dynamic> body = {
       'page': currentCategory!.pagenation,
       'categoryId': currentCategory!.id,
-      "itemsPerPage": itemsPerPage
+      'itemsPerPage': itemsPerPage
     };
+
+    if (searchTitle.value.isNotEmpty) {
+      body['title'] = searchTitle.value;
+
+      if (currentCategory!.id == '') {
+        body.remove('categoryId');
+      }
+    }
     HomeResult<ItemModel> result = await homeRepository.getAllProducts(body);
     setLoading(false, isProduct: true);
 
