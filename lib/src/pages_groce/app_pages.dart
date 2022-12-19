@@ -3,6 +3,7 @@ import 'package:greengrocer/src/pages/auth/view/sign_in_screen.dart';
 import 'package:greengrocer/src/pages/auth/view/sign_up_screen.dart';
 import 'package:greengrocer/src/pages/base/base_screen.dart';
 import 'package:greengrocer/src/pages/base/binding/navigation_biding.dart';
+import 'package:greengrocer/src/pages/cart/binding/cart_binding.dart';
 import 'package:greengrocer/src/pages/home/bilding/home_blinding.dart';
 import 'package:greengrocer/src/pages/splash/splash_screen.dart';
 
@@ -13,7 +14,7 @@ abstract class AppPages {
     GetPage(name: PagesRoutes.signUp, page: () => SignUpScreen()),
     GetPage(
       name: PagesRoutes.baseScrenn,
-      bindings: [NavigationBiding(), HomeBinding()],
+      bindings: [NavigationBiding(), HomeBinding(), CartBinding()],
       page: (() => const BaseScreen()),
     )
   ];
