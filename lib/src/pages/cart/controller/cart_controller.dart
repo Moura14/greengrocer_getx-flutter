@@ -19,6 +19,14 @@ class CartController extends GetxController {
     getCartitems();
   }
 
+  double cartTotalPrice() {
+    double total = 0;
+    for (final item in cartItems) {
+      total += item.totalPrice();
+    }
+    return total;
+  }
+
   Future<void> getCartitems() async {
     final CartResult<List<CartItemModel>> result =
         await cartRepository.getCartitems(
@@ -27,7 +35,6 @@ class CartController extends GetxController {
     result.when(success: (data) {
       cartItems = data;
       update();
-      print(data);
     }, error: (message) {
       utilsServices.showToast(message: message, isError: true);
     });

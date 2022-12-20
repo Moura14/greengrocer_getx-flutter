@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
-import 'package:greengrocer/src/models/cart_item_model.dart';
+import 'package:greengrocer/src/pages/cart/controller/cart_controller.dart';
 import 'package:greengrocer/src/pages/common_widgets/payment_dialog.dart';
 import 'package:greengrocer/src/services/utils_services.dart';
 import 'package:greengrocer/src/config/app_data.dart' as appData;
+
+import 'components/cart_tile.dart';
 
 class CartTab extends StatefulWidget {
   const CartTab({Key? key}) : super(key: key);
@@ -14,15 +17,6 @@ class CartTab extends StatefulWidget {
 
 class _CartTabState extends State<CartTab> {
   final UtilsServices utilsServices = UtilsServices();
-
-  void removeItemFromCart(CartItemModel cartITem) {
-    /* setState(() {
-      appData.cartItems.remove(cartITem);
-
-      utilsServices.showToast(
-          message: '${cartITem.item.itemName} removido(a) do carrinho');
-    }); */
-  }
 
   double cartTotalPrice() {
     /* double total = 0;
@@ -45,14 +39,16 @@ class _CartTabState extends State<CartTab> {
         children: [
           // Lista de itens do carrinho
           Expanded(
-            child: ListView.builder(
-              itemCount: 0,
-              itemBuilder: (_, index) {
-                return Container();
-                /*  return CartTile(
-                  cartItem: appData.cartItems[index],
-                  remove: removeItemFromCart,
-                ); */
+            child: GetBuilder<CartController>(
+              builder: (controller) {
+                return ListView.builder(
+                  itemCount: controller.cartItems.length,
+                  itemBuilder: (_, index) {
+                    return CartTile(
+                      cartItem: controller.cartItems[index],
+                    );
+                  },
+                );
               },
             ),
           ),
@@ -87,13 +83,18 @@ class _CartTabState extends State<CartTab> {
                           fontSize: 12,
                         ),
                       ),
-                      Text(
-                        utilsServices.priceToCurrency(cartTotalPrice()),
-                        style: TextStyle(
-                          fontSize: 23,
-                          color: CustomColors.customSwatchColor,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      GetBuilder<CartController>(
+                        builder: (controller) {
+                          return Text(
+                            utilsServices
+                                .priceToCurrency(controller.cartTotalPrice()),
+                            style: TextStyle(
+                              fontSize: 23,
+                              color: CustomColors.customSwatchColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
