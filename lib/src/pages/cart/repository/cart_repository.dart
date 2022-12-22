@@ -25,4 +25,16 @@ class CartRepository {
           'Ocorreu um erro ao recuperar os itens do carrinho');
     }
   }
+
+  Future addItemToCart(
+      {required String userId,
+      required String token,
+      required String productId,
+      required int quantity}) async {
+    _httpMenager.restRequest(
+        url: Endpoint.addItemToCart,
+        method: HttpMethods.post,
+        body: {'user': userId, 'quantity': quantity, 'productId': productId},
+        headers: {'token': token});
+  }
 }
