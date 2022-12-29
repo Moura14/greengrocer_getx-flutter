@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -5,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 class UtilsServices {
-  final storange = FlutterSecureStorage();
+  final storange = const FlutterSecureStorage();
 
   //Salvar dado localmente com segurança
   Future<void> saveLocalData(
@@ -34,6 +37,12 @@ class UtilsServices {
 
     DateFormat dateFormat = DateFormat.yMd('pt_BR').add_Hm();
     return dateFormat.format(dateTime);
+  }
+
+  Uint8List decodeQrCodeImage(String value) {
+    String base64String = value.split(',').last;
+
+    return base64.decode(base64String);
   }
 
   void showToast({

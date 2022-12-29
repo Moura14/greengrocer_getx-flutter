@@ -1,5 +1,6 @@
 import 'package:greengrocer/src/constants/endpoint.dart';
 import 'package:greengrocer/src/models/cart_item_model.dart';
+import 'package:greengrocer/src/models/order_model.dart';
 import 'package:greengrocer/src/pages/cart/cart_result/cart_result.dart';
 import 'package:greengrocer/src/services/http_menager.dart';
 
@@ -26,16 +27,22 @@ class CartRepository {
     }
   }
 
-  Future checkoutCart({
+  Future<CartResult<OrderModel>> checkoutCart({
     required String token,
     required double total,
   }) async {
-    _httpMenager
+    final result = await _httpMenager
         .restRequest(url: Endpoint.checkout, method: HttpMethods.post, body: {
       'total': total
     }, headers: {
       'X-Parse-Session-Token': token,
     });
+    if (result['result'] != null) {
+      final order = OrderModel.fromJson(result['result']);
+      return CartResult<OrderModel>.success(order);
+    } else {
+      return CartResult.error('Não foi possìvel realizar o pedido');
+    }
   }
 
   Future<bool> changeItemQuantity(

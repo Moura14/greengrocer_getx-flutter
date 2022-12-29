@@ -90,7 +90,8 @@ UserModel user = UserModel(
 
 List<OrderModel> orders = [
   // Pedido 01
-  OrderModel(
+
+  /* OrderModel(
     copyAndPaste: 'q1w2e3r4t5y6',
     createdDateTime: DateTime.parse(
       '2022-06-08 10:00:10.458',
@@ -111,7 +112,7 @@ List<OrderModel> orders = [
           quantity: 2,
         ), */
     ],
-  ),
+  ),  */
 
   // Pedido 02
   /*  OrderModel(
