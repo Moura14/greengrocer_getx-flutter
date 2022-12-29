@@ -26,6 +26,18 @@ class CartRepository {
     }
   }
 
+  Future checkoutCart({
+    required String token,
+    required double total,
+  }) async {
+    _httpMenager
+        .restRequest(url: Endpoint.checkout, method: HttpMethods.post, body: {
+      'total': total
+    }, headers: {
+      'X-Parse-Session-Token': token,
+    });
+  }
+
   Future<bool> changeItemQuantity(
       {required String token,
       required String cartItemId,
