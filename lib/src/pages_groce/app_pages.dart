@@ -8,6 +8,8 @@ import 'package:greengrocer/src/pages/home/bilding/home_blinding.dart';
 import 'package:greengrocer/src/pages/product/product_screen.dart';
 import 'package:greengrocer/src/pages/splash/splash_screen.dart';
 
+import '../pages/orders/binding/order_binding.dart';
+
 abstract class AppPages {
   static final pages = <GetPage>[
     GetPage(name: PagesRoutes.productRoutes, page: () => ProductScreen()),
@@ -16,7 +18,12 @@ abstract class AppPages {
     GetPage(name: PagesRoutes.signUp, page: () => SignUpScreen()),
     GetPage(
       name: PagesRoutes.baseScrenn,
-      bindings: [NavigationBiding(), HomeBinding(), CartBinding()],
+      bindings: [
+        NavigationBiding(),
+        HomeBinding(),
+        CartBinding(),
+        OrderBinding()
+      ],
       page: (() => const BaseScreen()),
     )
   ];
